@@ -1,0 +1,20 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: google-service
+          uri: https://www.google.com
+          predicates:
+            - Method=GET
+            - Path=/google/**
+          filters:
+            - name: StripPrefix
+              args:
+                parts: 2
+            - name: Auth
+              args:
+                  name: "auth argument"
